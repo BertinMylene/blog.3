@@ -1,8 +1,13 @@
 <?php
-//On inclut le fichier dont on a besoin (ici à la racine de notre site) pour se connecter à la database
-require 'Database.php';
-//Ne pas oublier d'ajouter le fichier Post.php
-require 'Post.php';
+
+
+//On inclut le fichier dont on a besoin pour se connecter à la database
+require '../src/DAO/DAO.php';
+//Ajout le fichier Post.php
+require '../src/DAO/PostDAO.php';
+
+use App\src\DAO\PostDAO;
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +24,7 @@ require 'Post.php';
 
         <?php
             //Nouvelle instance de Post
-            $post = new Post();
+            $post = new PostDAO();
             $posts = $post->getPosts();
 
             while($post = $posts->fetch())

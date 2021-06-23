@@ -1,7 +1,11 @@
 <?php
+namespace App\src\DAO;
+ 
+use PDO;
+use Exception;
 
 //Concernant la base de données...
-abstract class Database
+abstract class DAO
 {
 
     //Nos constantes

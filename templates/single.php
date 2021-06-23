@@ -1,10 +1,14 @@
 <?php
-//On inclut le fichier dont on a besoin (ici à la racine de notre site)
-require 'Database.php';
-//Ne pas oublier d'ajouter le fichier Post.php
-require 'Post.php';
-//Ne pas oublier d'ajouter le fichier Comment.php
-require 'Comment.php';
+
+use App\src\DAO\PostDAO;
+use App\src\DAO\CommentDAO;
+
+//On inclut le fichier dont on a besoin pour se connecter à la database
+require '../src/DAO/DAO.php';
+//Ajout le fichier Post.php
+require '../src/DAO/PostDAO.php';
+//Ajout le fichier Comment.php
+require '../src/DAO/CommentDAO.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +24,7 @@ require 'Comment.php';
     <p>En construction</p>
 
     <?php
-        $post = new Post();
+        $post = new PostDAO();
         $posts = $post->getPost($_GET['postId']);
         $post = $posts->fetch()
     ?>
@@ -42,7 +46,7 @@ require 'Comment.php';
     <div id="comments" class="text-left" style="margin-left: 50px">
         <h3>Commentaires</h3>
         <?php
-        $comment = new Comment();
+        $comment = new CommentDAO();
         $comments = $comment->getCommentsFromPost($_GET['postId']);
         while($comment = $comments->fetch())
         {
