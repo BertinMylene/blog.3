@@ -2,6 +2,7 @@
 
 //Concernant les articles...
 class Post extends Database
+
 {
     //Récupére tous les articles
     public function getPosts()
@@ -16,14 +17,4 @@ class Post extends Database
         $sql = 'SELECT id, title, content, author, createdAt FROM post WHERE id = ?';
         return $this->createQuery($sql, [$postId]);
     }
-
-
-
-
-
-
-
-
-
-
 }
