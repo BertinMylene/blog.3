@@ -1,7 +1,5 @@
 <?php
 
-require '../vendor/autoload.php';
-
 use App\src\DAO\PostDAO;
 
 ?>
@@ -27,10 +25,13 @@ use App\src\DAO\PostDAO;
             {
                 ?>
                 <div>
-                  <h2><a href="single.php?postId=<?= htmlspecialchars($post->id);?>"><?= htmlspecialchars($post->title);?></a></h2>
-                  <p><?= htmlspecialchars($post->content);?></p>
-                  <p><?= htmlspecialchars($post->author);?></p>
-                  <p>Créé le : <?= htmlspecialchars($post->createdAt);?></p>
+                    <h2><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->id);?>">
+                            <?= htmlspecialchars($post->title);?>
+                        </a>
+                    </h2>                  
+                    <p><?= htmlspecialchars($post->content);?></p>
+                    <p><?= htmlspecialchars($post->author);?></p>
+                    <p>Créé le : <?= htmlspecialchars($post->createdAt);?></p>
                 </div>
                 <br>
                 <?php
