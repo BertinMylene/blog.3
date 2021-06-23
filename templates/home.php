@@ -1,12 +1,11 @@
 <?php
 
-
-//On inclut le fichier dont on a besoin pour se connecter à la database
-require '../src/DAO/DAO.php';
-//Ajout le fichier Post.php
-require '../src/DAO/PostDAO.php';
+require '../config/Autoloader.php';
 
 use App\src\DAO\PostDAO;
+use \App\config\Autoloader;
+
+Autoloader::register();
 
 ?>
 
