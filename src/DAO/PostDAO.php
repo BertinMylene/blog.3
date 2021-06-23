@@ -1,7 +1,8 @@
 <?php
+namespace App\src\DAO;
 
 //Concernant les articles...
-class Post extends Database
+class PostDAO extends DAO
 
 {
     //Récupére tous les articles
