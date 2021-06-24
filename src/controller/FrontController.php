@@ -30,7 +30,7 @@ class FrontController
 
     public function post($postId)
     {
-        $posts = $this->postDAO->getPosts($postId);
+        $post = $this->postDAO->getPost($postId);
         $comments = $this->commentDAO->getCommentsFromPost($postId);
         require '../templates/single.php';
     }
