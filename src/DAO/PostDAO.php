@@ -44,8 +44,17 @@ class PostDAO extends DAO
     {
         $sql = 'SELECT id, title, content, author, createdAt FROM post WHERE id = ?';
         $result = $this->createQuery($sql, [$postId]);
-        $article = $result->fetch();
+        $post = $result->fetch();
         $result->closeCursor();
-        return $this->buildObject($article);
+        return $this->buildObject($post);
+    }
+
+    //Ajout d'un post
+    public function addPost($post)
+    {
+        //Permet de récupérer les variables $title, $content et $author
+        extract($post);
+        $sql = 'INSERT INTO post (title, content, author, createdAt) VALUES (?, ?, ?, NOW())';
+        $this->createQuery($sql, [$title, $content, $author]);
     }
 }
