@@ -49,7 +49,7 @@ abstract class DAO
 
     // Gére nos requêtes
     /**
-     * @param mixed $sql requete sql
+     * @param mixed $sql
      * @param null $parameters
      * 
      * @return [type]
@@ -60,13 +60,11 @@ abstract class DAO
         if($parameters)
         {
             $result = $this->checkConnection()->prepare($sql);
-            $result->setFetchMode(PDO::FETCH_CLASS, static::class); //Fonction 'objet' plutôt que tableau
             $result->execute($parameters);
             return $result;
         }
         //Sinon
         $result = $this->checkConnection()->query($sql);
-        $result->setFetchMode(PDO::FETCH_CLASS, static::class); //Fonction 'objet' plutôt que tableau
         return $result;
     }
 }
