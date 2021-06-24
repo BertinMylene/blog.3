@@ -33,6 +33,10 @@ class Router
                 elseif ($route === 'addPost'){
                     $this->backController->addPost($this->request->getPost());
                 }
+                elseif ($route === 'editPost'){
+                    $this->backController->editPost($this->request->getPost(), 
+                    $this->request->getGet()->get('postId'));
+                }
                 else{
                     $this->errorController->errorNotFound();
                 }
