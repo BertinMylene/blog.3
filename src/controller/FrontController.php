@@ -2,25 +2,9 @@
 
 namespace App\src\controller;
 
-use App\src\DAO\PostDAO;
-use App\src\DAO\CommentDAO;
-use App\src\model\View;
 
-/**
- * Gére ce qui est accessible à tout le monde
- */
-class FrontController
+class FrontController extends Controller
 {
-    private $postDAO;
-    private $commentDAO;
-
-    public function __construct()
-    {
-        $this->postDAO = new PostDAO();
-        $this->commentDAO = new CommentDAO();
-        $this->view = new View();
-    }
-
     /**
      * Gére l'affichage de la page d'accueil de notre site.
      */
