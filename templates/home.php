@@ -1,6 +1,6 @@
 <?php
 
-use App\src\DAO\PostDAO;
+
 
 ?>
 
@@ -17,10 +17,7 @@ use App\src\DAO\PostDAO;
         <p>En construction</p>
 
         <?php
-            //Nouvelle instance de Post
-            $post = new PostDAO();
-            $posts = $post->getPosts();
-
+            
             while($post = $posts->fetch())
             {
                 ?>
