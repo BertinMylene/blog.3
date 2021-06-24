@@ -2,6 +2,7 @@
 
 namespace App\config;
 
+//Gére la requête - Contient les variables superglobales
 class Request
 {
     private $get;
@@ -12,7 +13,7 @@ class Request
     {
         $this->get = new Parameter($_GET);
         $this->post = new Parameter($_POST);
-        $this->session = $_SESSION;
+        $this->session = new Session($_SESSION);
     }
 
     /**
