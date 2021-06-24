@@ -2,13 +2,13 @@
 
 namespace App\src\controller;
 
+use App\config\Parameter;
 
 class BackController extends Controller
 {
-    
-    public function addPost($post)
+    public function addPost(Parameter $post)
     {
-        if(isset($post['submit'])) {
+        if($post->get('submit')) {
             $this->postDAO->addPost($post);
             header('Location: ../public/index.php');
         }
