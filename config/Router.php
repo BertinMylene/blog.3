@@ -1,36 +1,37 @@
 <?php
 
 namespace App\config;
-use App\src\controller\FrontController;
 use App\src\controller\BackController;
 use App\src\controller\ErrorController;
+use App\src\controller\FrontController;
 use Exception;
 
 class Router
 {
-    private $frontController;   
-    private $backController;
+    private $frontController;
     private $errorController;
- 
-   
+    private $backController;
+    private $request;
+
     public function __construct()
     {
+        $this->request = new Request();
         $this->frontController = new FrontController();
         $this->backController = new BackController();
         $this->errorController = new ErrorController();
-
     }
 
     public function run()
     {
+        $route = $this->request->getGet()->get('route');
         try{
-            if(isset($_GET['route']))
+            if(isset($route))
             {
-                if($_GET['route'] === 'post'){
-                    $this->frontController->post($_GET['postId']);
+                if($route === 'post'){
+                    $this->frontController->post($this->request->getGet()->get('postId'));
                 }
-                elseif($_GET['route'] === 'addPost'){
-                    $this->backController->addPost($_POST);
+                elseif ($route === 'addPost'){
+                    $this->backController->addPost($this->request->getPost());
                 }
                 else{
                     $this->errorController->errorNotFound();

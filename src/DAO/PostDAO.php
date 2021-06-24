@@ -2,6 +2,7 @@
 
 namespace App\src\DAO;
 
+use App\config\Parameter;
 use App\src\model\Post;
 
 //Concernant les articles...
@@ -50,11 +51,9 @@ class PostDAO extends DAO
     }
 
     //Ajout d'un post
-    public function addPost($post)
+    public function addPost(Parameter $post)
     {
-        //Permet de récupérer les variables $title, $content et $author
-        extract($post);
         $sql = 'INSERT INTO post (title, content, author, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql, [$title, $content, $author]);
+        $this->createQuery($sql, [$post->get('title'), $post->get('content'), $post->get('author')]);
     }
 }
