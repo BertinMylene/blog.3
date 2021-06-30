@@ -2,6 +2,8 @@
 
 namespace App\src\controller;
 
+use App\config\Parameter;
+
 
 class FrontController extends Controller
 {
@@ -27,5 +29,25 @@ class FrontController extends Controller
             'post' => $post,
             'comments' => $comments
         ]);
+    }
+
+    public function addComment(Parameter $post, $postId)
+    {
+        if($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'Comment');
+            if(!$errors) {
+                $this->commentDAO->addComment($post, $postId);
+                $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté');
+                header('Location: ../public/index.php');
+            }
+            $post = $this->postDAO->getPost($postId);
+            $comments = $this->commentDAO->getCommentsFromPost($postId);
+            return $this->view->render('single', [
+                'post' => $post,
+                'comments' => $comments,
+                'post' => $post,
+                'errors' => $errors
+            ]);
+        }
     }
 }
