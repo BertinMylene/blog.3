@@ -15,12 +15,13 @@ class CommentDAO extends DAO
         $comment->setPseudo($row['pseudo']);
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['createdAt']);
+        $comment->setFlag($row['flag']);
         return $comment;
     }
 
     public function getCommentsFromPost($postId)
     {
-        $sql = 'SELECT id, pseudo, content, createdAt FROM comment WHERE post_id = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, createdAt, flag FROM comment WHERE post_id = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [$postId]);
         $comments = [];
         foreach ($result as $row) {
@@ -35,5 +36,17 @@ class CommentDAO extends DAO
     {
         $sql = 'INSERT INTO comment (pseudo, content, createdAt, post_id) VALUES (?, ?, NOW(), ?)';
         $this->createQuery($sql, [$post->get('pseudo'), $post->get('content'), $postId]);
+    }
+
+    public function flagComment($commentId)
+    {
+        $sql = 'UPDATE comment SET flag = ? WHERE id = ?';
+        $this->createQuery($sql, [1, $commentId]);
+    }
+
+    public function deleteComment($commentId)
+    {
+        $sql = 'DELETE FROM comment WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);
     }
 }

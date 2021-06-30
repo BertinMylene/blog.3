@@ -8,7 +8,7 @@
 <?= $this->session->show('edit_post'); ?>
 <?= $this->session->show('delete_post'); ?>
 <?= $this->session->show('add_comment'); ?>
-
+<?= $this->session->show('flag_comment'); ?>
 <br>
 <a href="../public/index.php?route=addPost">Nouvel article</a>
 
