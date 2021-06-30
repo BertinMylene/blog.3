@@ -39,6 +39,9 @@ class Router
                 elseif($route === 'deletePost'){
                     $this->backController->deletePost($this->request->getGet()->get('postId'));
                 }
+                elseif($route === 'addComment'){
+                    $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->get('postId'));
+                }
                 else{
                     $this->errorController->errorNotFound();
                 }
