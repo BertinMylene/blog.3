@@ -24,4 +24,10 @@ class Parameter
         $this->parameter[$name] = $value;
     }
 
+    //Récupérer toutes les données saisies
+    public function all()
+    {
+        return $this->parameter;
+    }
+
 }
