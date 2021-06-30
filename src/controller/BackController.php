@@ -40,6 +40,7 @@ class BackController extends Controller
             ]);
 
         }
+        //Edition d'un article, données brutes de la base
         $post->set('id', $article->getId());
         $post->set('title', $article->getTitle());
         $post->set('content', $article->getContent());
@@ -48,5 +49,12 @@ class BackController extends Controller
         return $this->view->render('edit_post', [
             'post' => $post
         ]);
+    }
+
+    public function deletePost($postId)
+    {
+        $this->postDAO->deletePost($postId);
+        $this->session->set('delete_post', 'L\' article a bien été supprimé');
+        header('Location: ../public/index.php');
     }
 }

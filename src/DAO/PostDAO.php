@@ -67,4 +67,12 @@ class PostDAO extends DAO
             'postId' => $postId
         ]);
     }
+
+    public function deletePost($postId)
+    {
+        $sql = 'DELETE FROM comment WHERE post_id = ?';
+        $this->createQuery($sql, [$postId]);
+        $sql = 'DELETE FROM post WHERE id = ?';
+        $this->createQuery($sql, [$postId]);
+    }
 }
