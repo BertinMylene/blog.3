@@ -40,14 +40,21 @@ class FrontController extends Controller
                 $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté');
                 header('Location: ../public/index.php');
             }
-            $post = $this->postDAO->getPost($postId);
+            $article = $this->postDAO->getPost($postId);
             $comments = $this->commentDAO->getCommentsFromPost($postId);
             return $this->view->render('single', [
-                'post' => $post,
+                'article' => $article,
                 'comments' => $comments,
                 'post' => $post,
                 'errors' => $errors
             ]);
         }
+    }
+
+    public function flagComment($commentId)
+    {
+        $this->commentDAO->flagComment($commentId);
+        $this->session->set('flag_comment', 'Le commentaire a bien été signalé');
+        header('Location: ../public/index.php');
     }
 }
