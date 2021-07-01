@@ -8,7 +8,10 @@ class BackController extends Controller
 {
     public function administration()
     {
-        return $this->view->render('administration');
+        $posts = $this->postDAO->getPosts();
+        return $this->view->render('administration', [
+            'posts' => $posts
+        ]);
     }
     
     public function addPost(Parameter $post)
@@ -16,9 +19,9 @@ class BackController extends Controller
         if($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Post');
             if(!$errors) {
-                $this->postDAO->addPost($post);
+                $this->postDAO->addPost($post, $this->session->get('id'));
                 $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
-                header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=administration');
             }
             return $this->view->render('add_post', [
                 'post' => $post,
@@ -35,9 +38,9 @@ class BackController extends Controller
         if($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Post');
             if(!$errors) {
-                $this->postDAO->editPost($post, $postId);
+                $this->postDAO->editPost($post, $postId, $this->session->get('id'));
                 $this->session->set('edit_post', 'L\' article a bien été modifié');
-                header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=administration');
             }
             return $this->view->render('edit_post', [
                 'post' => $post,
@@ -60,7 +63,7 @@ class BackController extends Controller
     {
         $this->postDAO->deletePost($postId);
         $this->session->set('delete_post', 'L\' article a bien été supprimé');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=administration');
     }
 
     public function deleteComment($commentId)
@@ -82,7 +85,7 @@ class BackController extends Controller
             $this->session->set('update_password', 'Le mot de passe a été mis à jour');
             header('Location: ../public/index.php?route=profile');
         }
-        return $this->view->render('update_password');
+        header('Location: ../public/index.php?route=profile');
     }
 
     public function logout()
