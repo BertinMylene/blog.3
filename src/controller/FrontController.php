@@ -33,9 +33,9 @@ class FrontController extends Controller
 
     public function addComment(Parameter $post, $postId)
     {
-        if($post->get('submit')) {
+        if ($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Comment');
-            if(!$errors) {
+            if (!$errors) {
                 $this->commentDAO->addComment($post, $postId);
                 $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté');
                 header('Location: ../public/index.php');
