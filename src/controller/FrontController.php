@@ -33,21 +33,28 @@ class FrontController extends Controller
 
     public function addComment(Parameter $post, $postId)
     {
+        $article = $this->postDAO->getPost($postId);
+        $comments = $this->commentDAO->getCommentsFromPost($postId);
+        //Si formulaire POST soumis, on insère le commentaire si les données sont valides
         if ($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Comment');
             if (!$errors) {
                 $this->commentDAO->addComment($post, $postId);
                 $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté');
-                header('Location: ../public/index.php');
+                //header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=post&postId=' . $postId);
             }
-            $article = $this->postDAO->getPost($postId);
-            $comments = $this->commentDAO->getCommentsFromPost($postId);
-            return $this->view->render('single', [
-                'article' => $article,
-                'comments' => $comments,
-                'post' => $post,
-                'errors' => $errors
-            ]);
+            else {
+                $this->view->render('single', [
+                    'article' => $article,
+                    'comments' => $comments,
+                    'errors' => $errors,
+                    'post' => $post
+                ]);
+            }
+        }else {
+            //Si aucun formulaire soumis, redirection vers home
+            header('Location: ../public/index.php');
         }
     }
 

@@ -4,7 +4,6 @@
 
 <p>En construction</p>
 
-
 <?= $this->session->show('add_comment'); ?>
 <?= $this->session->show('flag_comment'); ?>
 <?= $this->session->show('delete_comment'); ?>
@@ -13,23 +12,26 @@
 <?= $this->session->show('logout'); ?>
 <?= $this->session->show('delete_account'); ?>
 <br>
+
 <?php
-if ($this->session->get('pseudo')) {
+//Menu dynamique si l'utilisateur est connecté
+if ($this->session->get('pseudo')) :
     ?>
+    <p>Bienvenue sur votre espace <?= ucfirst(htmlspecialchars($this->session->get('pseudo')))?></p>
     <a href="../public/index.php?route=logout">Déconnexion</a>
     <a href="../public/index.php?route=profile">Profil</a>
-    <?php if($this->session->get('role') === 'admin') { ?>
-        <a href="../public/index.php?route=administration">Administration</a>
-    <?php } ?>
-    <a href="../public/index.php?route=addPost">Nouvel article</a>
-    <?php
-} else {
+    <?php if($this->session->get('role') === 'admin') :?>
+    <a href="../public/index.php?route=administration">Administration</a>
+    <?php endif;?>
+<?php
+else:
     ?>
     <a href="../public/index.php?route=register">Inscription</a>
     <a href="../public/index.php?route=login">Connexion</a>
-    <?php
-}
+<?php
+endif;
 ?>
+
 <?php
 foreach ($posts as $post)
 {
@@ -40,7 +42,7 @@ foreach ($posts as $post)
                 <?= htmlspecialchars($post->getTitle());?>
             </a>
         </h2>
-        <p><?= htmlspecialchars($post->getContent());?></p>
+        <p><?= nl2br(htmlspecialchars($post->getContent())); ?></p>
         <p><?= htmlspecialchars($post->getAuthor());?></p>
         <p>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></p>
     </div>

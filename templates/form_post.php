@@ -9,20 +9,16 @@
  * Si pas de données POST : addPost pour ajout
  */
 $route = isset($post) && $post->get('id') ? 'editPost&postId=' . $post->get('id') : 'addPost';
+$title = isset($post) ? htmlspecialchars($post->get('title')) : '';
+$content = isset($post) ? htmlspecialchars($post->get('content')) : '';
 $submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
 ?>
-
-<form method="post" action="../public/index.php?route=<?= $route; ?>">
+<form action="../public/index.php?route=<?= $route; ?>" method="post">
     <label for="title">Titre</label><br>
-    <input type="text" id="title" name="title" value="
-        <?= isset($post) ? htmlspecialchars($post->get('title')): ''; ?>"><br>
-        <?= isset($errors['title']) ? $errors['title'] : ''; ?>
-
+    <input type="text" id="title" name="title" value="<?= $title; ?>"><br>
+    <?= isset($errors['title']) ? $errors['title'] : '' ?>
     <label for="content">Contenu</label><br>
-    <textarea id="content" name="content">
-        <?= isset($post) ? htmlspecialchars($post->get('content')): ''; ?>
-    </textarea><br>
-        <?= isset($errors['content']) ? $errors['content'] : ''; ?>
-
+    <textarea name="content" id="contenu" cols="30" rows="10"><?= $content; ?></textarea><br>
+    <?= isset($errors['content']) ? $errors['content'] : '' ?>
     <input type="submit" value="<?= $submit; ?>" id="submit" name="submit">
 </form>

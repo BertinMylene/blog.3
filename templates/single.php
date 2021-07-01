@@ -2,6 +2,14 @@
 
 <h1>Mon blog</h1>
 <p>En construction</p>
+
+<?= $this->session->show('add_post'); ?>
+<?= $this->session->show('edit_post'); ?>
+<?= $this->session->show('delete_post'); ?>
+<?= $this->session->show('add_comment'); ?>
+<?= $this->session->show('flag_comment'); ?>
+<?= $this->session->show('delete_comment'); ?>
+
 <div>
     <h2><?= htmlspecialchars($post->getTitle()); ?></h2>
     <p><?= htmlspecialchars($post->getContent()); ?></p>
@@ -18,7 +26,7 @@
 <div id="comments" class="text-left" style="margin-left: 50px">
 
     <h3>Ajouter un commentaire</h3>
-    <?php include('form_comment.php'); ?>
+    <?php include 'form_comment.php'; ?>
 
     <h3>Commentaires</h3>
     <?php
@@ -40,7 +48,9 @@
             <?php
         }
         ?>
-        <p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a></p>
+        <p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">
+        Supprimer le commentaire</a>
+        </p>
         <br>
     <?php
     }
