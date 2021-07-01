@@ -10,9 +10,12 @@ class BackController extends Controller
     {
         $posts = $this->postDAO->getPosts();
         $comments = $this->commentDAO->getFlagComments();
+        $users = $this->userDAO->getUsers();
+
         return $this->view->render('administration', [
             'posts' => $posts,
-            'comments' => $comments
+            'comments' => $comments,
+            'users' => $users
         ]);
     }
     
@@ -106,6 +109,13 @@ class BackController extends Controller
     {
         $this->userDAO->deleteAccount($this->session->get('pseudo'));
         $this->logoutOrDelete('delete_account');
+    }
+
+    public function deleteUser($userId)
+    {
+        $this->userDAO->deleteUser($userId);
+        $this->session->set('delete_user', 'L\'utilisateur a bien été supprimé');
+        header('Location: ../public/index.php?route=administration');
     }
 
     private function logoutOrDelete($param)
