@@ -8,7 +8,6 @@
  * Si données POST : edition donc editPost pour modification
  * Si pas de données POST : addPost pour ajout
  */
-
 $route = isset($post) && $post->get('id') ? 'editPost&postId=' . $post->get('id') : 'addPost';
 $submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
 $title = isset($post) ? htmlspecialchars($post->get('title')) : '';
