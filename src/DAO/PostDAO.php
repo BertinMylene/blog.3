@@ -21,7 +21,7 @@ class PostDAO extends DAO
         $post->setId($row['id']);
         $post->setTitle($row['title']);
         $post->setContent($row['content']);
-        $post->setAuthor($row['author']);
+        $post->setAuthor($row['pseudo']);
         $post->setCreatedAt($row['createdAt']);
         return $post;
     }
@@ -29,7 +29,8 @@ class PostDAO extends DAO
     //Récupére tous les articles
     public function getPosts()
     {
-        $sql = 'SELECT id, title, content, author, createdAt FROM post ORDER BY id DESC';
+        $sql = 'SELECT post.id, post.title, post.content, user.pseudo, post.createdAt FROM post 
+                INNER JOIN user ON post.user_id = user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = [];
         foreach ($result as $row){
@@ -43,7 +44,8 @@ class PostDAO extends DAO
     //Récupére un article en fonction de l'id transmis
     public function getPost($postId)
     {
-        $sql = 'SELECT id, title, content, author, createdAt FROM post WHERE id = ?';
+        $sql = 'SELECT post.id, post.title, post.content, user.pseudo, post.createdAt FROM post 
+                INNER JOIN user ON post.user_id = user.id WHERE post.id = ?';
         $result = $this->createQuery($sql, [$postId]);
         $post = $result->fetch();
         $result->closeCursor();
@@ -51,19 +53,19 @@ class PostDAO extends DAO
     }
 
     //Ajout d'un post
-    public function addPost(Parameter $post)
+    public function addPost(Parameter $post, $userId)
     {
-        $sql = 'INSERT INTO post (title, content, author, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql, [$post->get('title'), $post->get('content'), $post->get('author')]);
+        $sql = 'INSERT INTO post (title, content, createdAt, user_id) VALUES (?, ?, NOW(), ?)';
+        $this->createQuery($sql, [$post->get('title'), $post->get('content'), $userId]);
     }
 
-    public function editPost(Parameter $post, $postId)
+    public function editPost(Parameter $post, $postId, $userId)
     {
         $sql = 'UPDATE post SET title=:title, content=:content, author=:author WHERE id=:postId';
         $this->createQuery($sql, [
             'title' => $post->get('title'),
             'content' => $post->get('content'),
-            'author' => $post->get('author'),
+            'user_id' => $userId,
             'postId' => $postId
         ]);
     }

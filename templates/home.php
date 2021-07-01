@@ -4,9 +4,7 @@
 
 <p>En construction</p>
 
-<?= $this->session->show('add_post'); ?>
-<?= $this->session->show('edit_post'); ?>
-<?= $this->session->show('delete_post'); ?>
+
 <?= $this->session->show('add_comment'); ?>
 <?= $this->session->show('flag_comment'); ?>
 <?= $this->session->show('delete_comment'); ?>
