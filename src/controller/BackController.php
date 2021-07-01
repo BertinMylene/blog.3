@@ -6,6 +6,11 @@ use App\config\Parameter;
 
 class BackController extends Controller
 {
+    public function administration()
+    {
+        return $this->view->render('administration');
+    }
+    
     public function addPost(Parameter $post)
     {
         if($post->get('submit')) {
@@ -102,4 +107,6 @@ class BackController extends Controller
         }
         header('Location: ../public/index.php');
     }
+
+
 }
